@@ -1,18 +1,33 @@
 <!DOCTYPE html>
-<html>
-<h1>List of Items</h1>
-<li>Elanz</li>
-
-<li>Hamed</li>
-
-<li>Elmira</li>
-
-{{items}}
-<p>
-<button type="button" onclick="alert('Cannot show')">Show checked items!</button>
-
-
-<button type="button" onclick="alert('Cannot show')">Show Unchecked items!</button>
-</p>
+<html lang="en">
+<head>
+	<title>Item List</title>
+</head>
+<body>
+	<h1>List of Visited Countries</h1>
+	<h2>Check all the countries that you have visited</h2>
+	
+	<form method="POST" action="/">
+		
+		<input type="checkbox" class="checkbox" value="France" name="switches" {{ "checked" if france else "" }} />
+		<label for="switch1" class="toggle">France</label>
+		<br>
+		<input type="checkbox" class="checkbox" value="Australia" name="switches" {{ "checked" if australia else "" }} />
+		<label for="switch2" class="toggle">Australia</label>
+		<br>
+		<input type="checkbox" class="checkbox" value="USA" name="switches" {{ "checked" if usa else "" }} />
+		<label for="switch2" class="toggle">USA</label>
+		<br>
+		<input type="checkbox" class="checkbox" value="Kenya" name="switches" {{ "checked" if kenya else "" }} />
+		<label for="switch2" class="toggle">Kenya</label>
+		<br>
+		
+		<hr size="4">
+		
+		<button><input type="submit" name="action" value="Show Visited Countries" /></button>
+		{% if check_list %}
+			{{ check_list }}
+		{% endif %}
+	</form>
+</body>
 </html>
-
