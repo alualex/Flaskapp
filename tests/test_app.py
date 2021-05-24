@@ -1,20 +1,20 @@
 import os
 import tempfile
-
 import pytest
 
-import app
+from app import app as flask_app
 
 
 @pytest.fixture
-def client():
-    db_fd, app.config['DATABASE'] = tempfile.mkstemp()
-    app.config['TESTING'] = True
+def app():
+    yield flask_app
 
-    with app.test_client() as client:
-        with app.app_context():
-            app.init_db()
-        yield client
 
-    os.close(db_fd)
-    os.unlink(app.config['DATABASE'])
+@pytest.fixture
+def client(app):
+    return app.test_client()
+
+
+def test_index(app, client):
+    res = client.get('/')
+    assert res.status_code == 200
